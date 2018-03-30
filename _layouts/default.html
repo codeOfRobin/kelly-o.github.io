@@ -15,24 +15,13 @@
   <body>
     <div class="wrapper">
       <header>
-        <a href="{{ site.github.url }}"> <h1>{{ site.title | default: site.github.repository_name }}</h1> </a>
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
-
-        {% if site.github.is_project_page %}
-          <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ github_name }}</small></a></p>
-        {% endif %}
-
-        {% if site.github.is_user_page %}
-          <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
-        {% endif %}
-
-        {% if site.show_downloads %}
-          <ul>
-            <li><a href="{{ site.github.zip_url }}">Download <strong>ZIP File</strong></a></li>
-            <li><a href="{{ site.github.tar_url }}">Download <strong>TAR Ball</strong></a></li>
-            <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
+        <a href="{{ site.github.url }}"> <h1>{{ page.title }}</h1> </a>
+        <div id="tocDiv">
+          <h3><br>Table of Contents</h3>
+          <ul id="tocList">
           </ul>
-        {% endif %}
+        </div>
+
       </header>
       <section>
 
@@ -59,5 +48,34 @@
         ga('send', 'pageview');
     </script>
   {% endif %}
+    <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(tocList).empty();
+
+        var prevH2Item = null;
+        var prevH2List = null;
+
+        var index = 0;
+        $("tocborder h2, tocborder h3").each(function() {
+
+            var anchor = "<a name='" + index + "'></a>";
+            $(this).before(anchor);
+
+            var li     = "<li><a href='#" + index + "'>" + $(this).text() + "</a></li>";
+
+            if( $(this).is("h2") ){
+                prevH2List = $("<ul></ul>");
+                prevH2Item = $(li);
+                prevH2Item.append(prevH2List);
+                prevH2Item.appendTo("#tocList");
+            } else {
+                prevH2List.append(li);
+            }
+            index++;
+        });
+
+    });
+    </script>
   </body>
 </html>
