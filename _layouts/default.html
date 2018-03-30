@@ -16,17 +16,13 @@
     <div class="wrapper">
       <header>
         <a href="{{ site.github.url }}"> <h1>{{ page.title }}</h1> </a>
-        <div id="tocDiv">
-          <h3><br>Table of Contents</h3>
-          <ul id="tocList">
-          </ul>
-        </div>
+        <nav role='navigation' class='table-of-contents'></nav>
 
       </header>
       <section>
-
-      {{ content }}
-
+        <div class="page-content">
+          {{ content }}
+        </div>
       </section>
       <footer>
         {% if site.github.is_project_page %}
@@ -48,34 +44,39 @@
         ga('send', 'pageview');
     </script>
   {% endif %}
+
     <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $(tocList).empty();
 
-        var prevH2Item = null;
-        var prevH2List = null;
+      var ToC =
+        "<nav role='navigation' class='table-of-contents'>" +
+          "<h2>On this page:</h2>" +
+          "<ul>";
 
-        var index = 0;
-        $("tocborder h2, tocborder h3").each(function() {
+      var newLine, el, title, link;
 
-            var anchor = "<a name='" + index + "'></a>";
-            $(this).before(anchor);
+      $("article h3").each(function() {
 
-            var li     = "<li><a href='#" + index + "'>" + $(this).text() + "</a></li>";
+        el = $(this);
+        title = el.text();
+        link = "#" + el.attr("id");
 
-            if( $(this).is("h2") ){
-                prevH2List = $("<ul></ul>");
-                prevH2Item = $(li);
-                prevH2Item.append(prevH2List);
-                prevH2Item.appendTo("#tocList");
-            } else {
-                prevH2List.append(li);
-            }
-            index++;
-        });
+        newLine =
+          "<li>" +
+            "<a href='" + link + "'>" +
+              title +
+            "</a>" +
+          "</li>";
 
-    });
+        ToC += newLine;
+
+      });
+
+      ToC +=
+         "</ul>" +
+        "</nav>";
+
+      $(".page-content").prepend(ToC);
     </script>
   </body>
 </html>
