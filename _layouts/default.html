@@ -15,7 +15,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <nav role='navigation' class='table-of-contents'></nav>
+
+        {% include toc.html html=content %}
 
       </header>
       <section>
@@ -44,38 +45,5 @@
     </script>
   {% endif %}
 
-    <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>
-
-      var ToC =
-        "<nav role='navigation' class='table-of-contents'>" +
-          "<h2>On this page:</h2>" +
-          "<ul>";
-
-      var newLine, el, title, link;
-
-      $("article h3").each(function() {
-
-        el = $(this);
-        title = el.text();
-        link = "#" + el.attr("id");
-
-        newLine =
-          "<li>" +
-            "<a href='" + link + "'>" +
-              title +
-            "</a>" +
-          "</li>";
-
-        ToC += newLine;
-
-      });
-
-      ToC +=
-         "</ul>" +
-        "</nav>";
-
-      $(".page-content").prepend(ToC);
-    </script>
   </body>
 </html>
