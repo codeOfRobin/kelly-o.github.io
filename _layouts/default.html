@@ -37,34 +37,6 @@
         <h3><br>Table of Contents</h3>
           <ul id="tocList"></ul>
 
-        <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script>
-        $(document).ready(function() {
-            $(tocList).empty();
-
-            var prevH2Item = null;
-            var prevH2List = null;
-
-            var index = 0;
-            $("tocborder h2, tocborder h3").each(function() {
-
-                var anchor = "<a name='" + index + "'></a>";
-                $(this).before(anchor);
-
-                var li     = "<li><a href='#" + index + "'>" + $(this).text() + "</a></li>";
-
-                if( $(this).is("h2") ){
-                    prevH2List = $("<ul></ul>");
-                    prevH2Item = $(li);
-                    prevH2Item.append(prevH2List);
-                    prevH2Item.appendTo("#tocList");
-                } else {
-                    prevH2List.append(li);
-                }
-                index++;
-            });
-
-        });
       </header>
       <section>
 
@@ -91,5 +63,34 @@
         ga('send', 'pageview');
     </script>
   {% endif %}
+
+  <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+  $(document).ready(function() {
+      $(tocList).empty();
+
+      var prevH2Item = null;
+      var prevH2List = null;
+
+      var index = 0;
+      $("tocborder h2, tocborder h3").each(function() {
+
+          var anchor = "<a name='" + index + "'></a>";
+          $(this).before(anchor);
+
+          var li     = "<li><a href='#" + index + "'>" + $(this).text() + "</a></li>";
+
+          if( $(this).is("h2") ){
+              prevH2List = $("<ul></ul>");
+              prevH2Item = $(li);
+              prevH2Item.append(prevH2List);
+              prevH2Item.appendTo("#tocList");
+          } else {
+              prevH2List.append(li);
+          }
+          index++;
+      });
+
+  });
   </body>
 </html>
