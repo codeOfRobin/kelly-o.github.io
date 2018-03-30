@@ -1,5 +1,4 @@
 ---
-author: Kelly O'Brien
 ---
 
 # This is a test
